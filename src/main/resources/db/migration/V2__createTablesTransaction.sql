@@ -1,0 +1,9 @@
+CREATE TABLE transactions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    amount DECIMAL(10,2) NOT NULL,
+    sender_id BIGINT NOT NULL,
+    reciver_id BIGINT NOT NULL,
+    times_temp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (reciver_id) REFERENCES users(id) ON DELETE CASCADE
+);
