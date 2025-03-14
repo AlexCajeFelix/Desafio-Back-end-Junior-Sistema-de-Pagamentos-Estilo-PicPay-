@@ -2,9 +2,7 @@ package com.example.demo.Core.Entities.Transactions;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
-import com.example.demo.Core.Entities.Users;
-
+import com.example.demo.Infra.JpaEntities.UserEntities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,11 +34,11 @@ public class Transactions {
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    private Users sender;
+    private UserEntities sender;
 
     @ManyToOne
     @JoinColumn(name = "reciver_id")
-    private Users reciver;
+    private UserEntities reciver;
 
     private LocalDate timesTemp;
 

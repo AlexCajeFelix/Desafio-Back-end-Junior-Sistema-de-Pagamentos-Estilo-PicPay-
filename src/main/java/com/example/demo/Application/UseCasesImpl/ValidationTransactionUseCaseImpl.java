@@ -4,12 +4,10 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.Application.Enum.UserType;
-import com.example.demo.Core.Entities.Users;
 import com.example.demo.Core.Exeptions.UserServiceExepition;
 import com.example.demo.Core.UseCases.ValidationUserRepositoryUseCase;
+import com.example.demo.Infra.JpaEntities.UserEntities;
 import com.example.demo.Core.UseCases.ValidationTransactionAndOtherMethodsUseCaseImpl;
-
-
 @Service
 public class ValidationTransactionUseCaseImpl implements ValidationTransactionAndOtherMethodsUseCaseImpl{
 
@@ -17,7 +15,7 @@ public class ValidationTransactionUseCaseImpl implements ValidationTransactionAn
     private ValidationUserRepositoryUseCase UserRepositorys;
 
     @Override
-    public void validationTransaction(Users sender, BigDecimal amount, Users reciver) {
+    public void validationTransaction(UserEntities sender, BigDecimal amount, UserEntities reciver) {
        if(sender.getType() != UserType.USUARIO) {
             throw new UserServiceExepition("Só os usuarios podem fazer transações");
         }
@@ -33,19 +31,21 @@ public class ValidationTransactionUseCaseImpl implements ValidationTransactionAn
 }   
  
     @Override
-    public Users findByUserId(Long id) {
-        return UserRepositorys.findById(id).orElseThrow(new UserServiceExepition("Esse id nao existe"));
+    public UserEntities findByUserId(Long id) {
+        return UserRepositorys.findById(id);
             
     }
     
     @Override
-    public void saveUser(Users user) {
+    public void saveUser(UserEntities  user) {
         if(user != null) {
             UserRepositorys.save(user);
         }else{
             throw new UserServiceExepition("User nao pode ser nulo");
         }
     }
+
+   
 
     
 }

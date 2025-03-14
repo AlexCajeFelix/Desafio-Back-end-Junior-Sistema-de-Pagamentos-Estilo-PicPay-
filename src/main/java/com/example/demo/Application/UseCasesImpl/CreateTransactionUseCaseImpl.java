@@ -1,17 +1,15 @@
 package com.example.demo.Application.UseCasesImpl;
 
 import java.time.LocalDate;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.Application.Dtos.TransactionDto;
-import com.example.demo.Core.Entities.Users;
 import com.example.demo.Core.Entities.Transactions.Transactions;
 import com.example.demo.Core.UseCases.TransactionRepositorysUseCase;
 import com.example.demo.Core.UseCases.TransactionsUseCase;
 import com.example.demo.Core.UseCases.ValidationTransactionAndOtherMethodsUseCaseImpl;
-
+import com.example.demo.Infra.JpaEntities.UserEntities;
 
 import jakarta.transaction.Transactional;
 
@@ -28,22 +26,19 @@ public class CreateTransactionUseCaseImpl implements TransactionsUseCase {
     @Override
     public Transactions createTransaction(TransactionDto transactionDto) {
        
-        
-    
-            Users sender = ValidationTransactionAndOtherMethodsUseCaseImpl.findByUserId(transactionDto.senderId());
-            Users reciver = ValidationTransactionAndOtherMethodsUseCaseImpl.findByUserId(transactionDto.reciverId());
+            UserEntities sender = ValidationTransactionAndOtherMethodsUseCaseImpl.findByUserId(transactionDto.senderId());
+            UserEntities reciver = ValidationTransactionAndOtherMethodsUseCaseImpl.findByUserId(transactionDto.reciverId());
             
             ValidationTransactionAndOtherMethodsUseCaseImpl.validationTransaction(sender, transactionDto.amount(), reciver);
-            
             
                 sender.setBalance(sender.getBalance().subtract(transactionDto.amount()));
                 ValidationTransactionAndOtherMethodsUseCaseImpl.saveUser(sender);
        
-
-            
                 reciver.setBalance(reciver.getBalance().add(transactionDto.amount()));
                 ValidationTransactionAndOtherMethodsUseCaseImpl.saveUser(reciver);
-       
+
+            
+                
 
             com.example.demo.Core.Entities.Transactions.Transactions transaction = new Transactions(null, transactionDto.amount(), sender, reciver, LocalDate.now());
             transactionSave.save(transaction);

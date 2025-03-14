@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.example.demo.Application.Enum.UserType;
 import com.example.demo.Core.Entities.Users;
+import com.example.demo.Infra.JpaEntities.UserEntities;
 
 
 public class UsersFactory {
@@ -15,8 +16,8 @@ public class UsersFactory {
     private static  Long RECEIVER_ID = 2L;
 
     // Métodos de fábrica
-    public static Users sender() {
-        return new Users(
+    public static UserEntities sender() {
+        return new UserEntities(
                 SENDER_ID,                  
                 "Alex",                     
                 "alex@gmail.com",        
@@ -27,8 +28,8 @@ public class UsersFactory {
         );
     }
 
-    public static Users reciver() {
-        return new Users(
+    public static UserEntities reciver() {
+        return new UserEntities(
                 RECEIVER_ID,                  
                 "Maria",                       
                 "maria@lojista.com",           

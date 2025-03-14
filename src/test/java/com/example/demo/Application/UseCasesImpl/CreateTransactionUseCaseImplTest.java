@@ -4,23 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.math.BigDecimal;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import com.example.demo.Application.Dtos.TransactionDto;
 import com.example.demo.Application.UseCasesImpl.Factory.TransactionDtoFactory;
 import com.example.demo.Application.UseCasesImpl.Factory.UsersFactory;
-import com.example.demo.Core.Entities.Users;
 import com.example.demo.Core.Entities.Transactions.Transactions;
 import com.example.demo.Core.Exeptions.UserServiceExepition;
 import com.example.demo.Core.UseCases.TransactionRepositorysUseCase;
 import com.example.demo.Core.UseCases.ValidationTransactionAndOtherMethodsUseCaseImpl;
+import com.example.demo.Infra.JpaEntities.UserEntities;
 
 public class CreateTransactionUseCaseImplTest {
 
@@ -37,8 +34,8 @@ public class CreateTransactionUseCaseImplTest {
     private static final BigDecimal EXPECTED_SENDER = new BigDecimal(90.00);
     private static final BigDecimal EXPECTED_RECIVER = new BigDecimal(210.00);
 
-    private Users sender;
-    private Users reciver;
+    private UserEntities sender;
+    private UserEntities reciver;
 
     @BeforeEach
     void setUp() {
@@ -46,19 +43,17 @@ public class CreateTransactionUseCaseImplTest {
         sender = UsersFactory.sender();
         reciver = UsersFactory.reciver();
         when(validationTransactionAndOtherMethodsUseCase.findByUserId(sender.getId())).thenReturn(sender);
-        when(validationTransactionAndOtherMethodsUseCase.findByUserId(reciver.getId())).thenReturn(reciver);
-       
+        when(validationTransactionAndOtherMethodsUseCase.findByUserId(reciver.getId())).thenReturn(reciver); 
     }
 
     @Test
     public void shouldReturnTransactionWhenAllConditionsAreValid() {
-  
         TransactionDto transactionDto = TransactionDtoFactory.createTransactionDto(TRANSACTION_AMOUNT, sender.getId(), reciver.getId());
+
         Transactions transactions = createTransactionUseCaseImpl.createTransaction(transactionDto);
           assertNotNull(transactions);
           assertEquals(EXPECTED_SENDER, sender.getBalance());
           assertEquals(EXPECTED_RECIVER, reciver.getBalance());
-   
     }
 
     @Test

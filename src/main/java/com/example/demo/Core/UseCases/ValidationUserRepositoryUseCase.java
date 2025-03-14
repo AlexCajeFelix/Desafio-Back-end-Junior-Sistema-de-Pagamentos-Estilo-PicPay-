@@ -1,8 +1,8 @@
 package com.example.demo.Core.UseCases;
 
-import com.example.demo.Core.Entities.Users;
+import com.example.demo.Infra.JpaEntities.UserEntities;
 
 public interface ValidationUserRepositoryUseCase {
-        public Users findById(Long id);
-        public void save(Users user);
+        public UserEntities findById(Long id);
+        public void save(UserEntities  user);
 }
