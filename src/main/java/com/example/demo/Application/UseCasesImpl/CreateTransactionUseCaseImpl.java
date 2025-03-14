@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.Application.Dtos.TransactionDto;
-import com.example.demo.Core.Entities.Transactions.Transactions;
 import com.example.demo.Core.UseCases.TransactionRepositorysUseCase;
 import com.example.demo.Core.UseCases.TransactionsUseCase;
 import com.example.demo.Core.UseCases.ValidationTransactionAndOtherMethodsUseCaseImpl;
 import com.example.demo.Infra.JpaEntities.UserEntities;
+import com.example.demo.Infra.JpaEntities.TrancsionEntities;
 
 import jakarta.transaction.Transactional;
 
@@ -24,7 +24,7 @@ public class CreateTransactionUseCaseImpl implements TransactionsUseCase {
 
     @Transactional
     @Override
-    public Transactions createTransaction(TransactionDto transactionDto) {
+    public TrancsionEntities createTransaction(TransactionDto transactionDto) {
        
             UserEntities sender = ValidationTransactionAndOtherMethodsUseCaseImpl.findByUserId(transactionDto.senderId());
             UserEntities reciver = ValidationTransactionAndOtherMethodsUseCaseImpl.findByUserId(transactionDto.reciverId());
@@ -40,7 +40,7 @@ public class CreateTransactionUseCaseImpl implements TransactionsUseCase {
             
                 
 
-            com.example.demo.Core.Entities.Transactions.Transactions transaction = new Transactions(null, transactionDto.amount(), sender, reciver, LocalDate.now());
+                TrancsionEntities transaction = new TrancsionEntities(null, transactionDto.amount(), sender, reciver, LocalDate.now());
             transactionSave.save(transaction);
 
             return transaction;

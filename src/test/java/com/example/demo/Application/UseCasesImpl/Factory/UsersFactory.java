@@ -3,7 +3,6 @@ package com.example.demo.Application.UseCasesImpl.Factory;
 import java.math.BigDecimal;
 
 import com.example.demo.Application.Enum.UserType;
-import com.example.demo.Core.Entities.Users;
 import com.example.demo.Infra.JpaEntities.UserEntities;
 
 

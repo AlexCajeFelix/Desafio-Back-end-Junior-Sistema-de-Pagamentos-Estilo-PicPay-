@@ -1,8 +1,8 @@
 package com.example.demo.Core.UseCases;
 
 import com.example.demo.Application.Dtos.TransactionDto;
-import com.example.demo.Core.Entities.Transactions.Transactions;
+import com.example.demo.Infra.JpaEntities.TrancsionEntities;
 
 public interface TransactionsUseCase {
-        public Transactions createTransaction(TransactionDto transactionDto);
+        public TrancsionEntities createTransaction(TransactionDto transactionDto);
 }

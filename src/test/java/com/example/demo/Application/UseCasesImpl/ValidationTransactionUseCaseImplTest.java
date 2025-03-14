@@ -26,9 +26,6 @@ public class ValidationTransactionUseCaseImplTest {
     @BeforeEach
     public void setup() {
          MockitoAnnotations.openMocks(this);
-         UserEntities sender = UsersFactory.sender();
-         UserEntities reciver = UsersFactory.reciver();
-         
     }
 
     @Test 
@@ -37,7 +34,7 @@ public class ValidationTransactionUseCaseImplTest {
         sender.setType(UserType.LOJISTA);
         UserEntities reciver = UsersFactory.reciver();
 
-        UserServiceExepition exception = assertThrows(UserServiceExepition.class, () -> {
+        assertThrows(UserServiceExepition.class, () -> {
             validationTransactionUseCaseImpl.validationTransaction(sender, new BigDecimal(10.00), reciver);
         });
     }
@@ -46,7 +43,7 @@ public class ValidationTransactionUseCaseImplTest {
     public void shouldThrowExceptionWhenAmountIsNegative() {
         UserEntities sender = UsersFactory.sender();
         UserEntities reciver = UsersFactory.reciver();
-        UserServiceExepition exception = assertThrows(UserServiceExepition.class, () -> {
+         assertThrows(UserServiceExepition.class, () -> {
             validationTransactionUseCaseImpl.validationTransaction(sender, new BigDecimal(-10.00), reciver);
         });
     }
@@ -55,7 +52,7 @@ public class ValidationTransactionUseCaseImplTest {
     public void shouldThrowExceptionWhenSenderBalanceIsLessThanAmount() {
         UserEntities sender = UsersFactory.sender();
         UserEntities reciver = UsersFactory.reciver();
-        UserServiceExepition exception = assertThrows(UserServiceExepition.class, () -> {
+       assertThrows(UserServiceExepition.class, () -> {
             validationTransactionUseCaseImpl.validationTransaction(sender, new BigDecimal(200.00), reciver);
         });
     }
@@ -63,8 +60,7 @@ public class ValidationTransactionUseCaseImplTest {
     @Test 
     public void shouldThrowExceptionWhenSenderAndReciverAreTheSame() {
         UserEntities sender = UsersFactory.sender();
-        UserEntities reciver = UsersFactory.reciver();
-        UserServiceExepition exception = assertThrows(UserServiceExepition.class, () -> {
+             assertThrows(UserServiceExepition.class, () -> {
             validationTransactionUseCaseImpl.validationTransaction(sender, new BigDecimal(10.00), sender);
         });
     }

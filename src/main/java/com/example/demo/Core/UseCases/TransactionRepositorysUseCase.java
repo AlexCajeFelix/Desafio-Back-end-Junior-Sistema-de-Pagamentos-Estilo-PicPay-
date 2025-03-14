@@ -1,7 +1,7 @@
 package com.example.demo.Core.UseCases;
 
-import com.example.demo.Core.Entities.Transactions.Transactions;
+import com.example.demo.Infra.JpaEntities.TrancsionEntities;
 
 public interface TransactionRepositorysUseCase {
-    public void save(Transactions transaction);
+    public void save(TrancsionEntities transaction);
 }
